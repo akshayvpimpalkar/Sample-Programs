@@ -66,3 +66,7 @@ and o.amt > o2.amt);
 28. select * from (select c.cname, s.sname, round(100*s.comm) as comm_percent from customers c join salespeople s on s.snum = c.snum) as t where t.comm_percent > 12; 
 
 29. select s.sname, count(c.snum) as s_count from salespeople s join customers c on s.snum = c.snum group by c.snum having s_count > 1;
+
+30. select s.sname, c.cname, s.city from salespeople s join customers c on s.snum = c.snum where s.city = c.city;
+
+31. select sname from salespeople where sname like 'P__l%';
