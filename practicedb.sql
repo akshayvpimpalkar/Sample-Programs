@@ -70,3 +70,53 @@ and o.amt > o2.amt);
 30. select s.sname, c.cname, s.city from salespeople s join customers c on s.snum = c.snum where s.city = c.city;
 
 31. select sname from salespeople where sname like 'P__l%';
+
+32. wrong ans: select o.onum, c.cname from orders o join customers c join c.cnum = o.cnum where c.cname = 'cisneros';
+
+rightt ans: select o.onum, t.* from orders o join (select cnum, cname from customers where cname = 'cisneros') as t on o.cnum = t.cnum;
+
+33. select t.*, max(amt) as max_order from orders o join (select sname, snum from salespeople where sname in ('serres', 'rifkin')) as t on o.snum = t.snum group by t.snum;
+
+34. select * from salespeople order by snum;
+select * from salespeople order by sname;
+select * from salespeople order by comm;
+select * from salespeople order by city;
+
+select snum, sname, comm, city from salespeople;
+
+35. select * from customers where cname between 'A' and 'G';
+
+36. select c.cname C_cname, c1.cname C1_cname from customers c, customers c1 where c.cname < c1.cname; 
+
+37. select onum, odate, amt from orders where amt > (select avg(amt) from orders where odate = '10/04/96');
+
+
+/*Co-related subquery*/
+38. select c1.cname, c1.cnum, t.* from customers c1 join (select max(rating) max_rating, city from customers group by city) as t on c1.city = t.city and c1.rating = t.max_rating;
+
+wrong ans: select t.* from (select max(rating) max_rating, city, cname, cnum from customers group by city) as t;
+
+39. /*considering count of the orders per day*/
+select count(odate) total_orders_per_day, odate from orders group by odate order by total_orders_per_day desc;
+
+/*considering sum of amt for each day*/
+select sum(amt) sum_amt, odate from orders group by odate order by sum_amt desc;
+
+
+40. select rating, cname, city from customers where city = 'san jose'; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
